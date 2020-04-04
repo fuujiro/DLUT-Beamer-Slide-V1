@@ -1,0 +1,197 @@
+
+%%%
+%%% Inherit definitions from existing themes (DO NOT MODIFY THESE)
+%%%
+
+% Layout scheme for outer elements: split header and footer
+\useoutertheme{split}
+
+% Color scheme for outer elements: use background colors
+\usecolortheme{whale}
+
+% Layout scheme for inner elements: rounded elements
+\useinnertheme[shadow]{rounded}
+
+% Color scheme for inner elements: use foreground colors
+\usecolortheme{orchid}
+
+
+%%%
+%%% Tweak definitions of inner theme to match personal preferences (MODIFY THESE)
+%%%
+
+% Itemize items: default (triangle), circle, square, ball
+\setbeamertemplate{itemize items}[circle]
+
+% Enumerate items: default, circle, square, ball
+\setbeamertemplate{enumerate items}[circle]
+
+% Outline: default, sections numbered, subsections numbered, circle, square, ball, ball unnumbered
+\setbeamertemplate{sections/subsections in toc}[default]
+
+% General blocks:
+\setbeamertemplate{blocks}[rounded]
+
+% Title page:
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+
+% Part page:
+\setbeamertemplate{part page}[default][colsep=-4bp,rounded=true]
+
+\setbeamertemplate{caption}[numbered]
+\setbeamerfont{caption}{size=\scriptsize}
+\renewcommand\figurename{图}
+\renewcommand\tablename{表}
+
+% Navigation symbols:
+% \setbeamertemplate{navigation symbols}{}
+
+
+%%%
+%%% Tweak definitions of outer theme to match Radboud (website) style
+%%%
+
+% Background
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{bg}{source/dlut_background.png}
+\setbeamertemplate{background}{\pgfuseimage{bg}}
+
+% Colors
+% \usecolortheme[RGB={182,11,45}]{structure} %Red
+\usecolortheme[RGB={45,101,177}]{structure} %DLUT
+
+\setbeamercolor{frametitle}{parent=subsection in head/foot}
+\setbeamercolor{frametitle right}{parent=section in head/foot}
+
+% ------------------------------- Define color ------------------------------- %
+\definecolor{dlutbeamer@base}{RGB}{0, 64, 152}
+\definecolor{dlutbeamer@graybase}{RGB}{240, 240, 240}
+\definecolor{dlutbeamer@gray}{RGB}{130, 130, 130}
+\definecolor{dlutbeamer@orange}{RGB}{240,140,0}
+\definecolor{dlutbeamer@red}{RGB}{210, 26, 66}
+\definecolor{dlutbeamer@green}{RGB}{0, 127, 0}
+
+% setting the color of block, example and alerted
+\setbeamercolor{block title}{fg = white, bg = dlutbeamer@base}
+\setbeamercolor{block title example}{%
+  use = alerted text, fg = white, bg = dlutbeamer@green}
+\setbeamercolor{block title alerted}{%
+  use = alerted text, fg = white, bg = dlutbeamer@orange}
+
+% setting the textcolor and background color of block
+\setbeamercolor{block body}{%
+  parent = normal text, use = block title,
+  bg = block title.bg!10!bg}
+\setbeamercolor{block body example}{%
+  parent = normal text, bg = dlutbeamer@graybase}
+\setbeamercolor{block body alerted}{%
+  parent = normal text, use = block title alerted,
+  bg = block title alerted.bg!10!bg}
+
+% setting the bibliography entry style
+\setbeamertemplate{bibliography item}{%
+  \ifboolexpr{ test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
+    or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
+    or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
+    {\setbeamertemplate{bibliography item}[book]}
+    {\ifentrytype{online}
+      {\setbeamertemplate{bibliography item}[online]}
+      {\setbeamertemplate{bibliography item}[article]}}%
+  \usebeamertemplate{bibliography item}}
+
+
+
+\pgfdeclarehorizontalshading[frametitle.bg,frametitle right.bg]{beamer@frametitleshade}{\paperheight}{%
+  color(0pt)=(frametitle.bg);
+  color(\paperwidth)=(frametitle right.bg)}
+
+\AtBeginDocument{
+  \pgfdeclareverticalshading{beamer@topshade}{\paperwidth}{%
+    color(0pt)=(bg);
+    color(4pt)=(black!50!bg)}
+}
+
+% Footline: AUTHOR | TITLE | DATE FRAMENUMBER
+
+\defbeamertemplate*{footline}{dlut theme}{%
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortdate
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.435\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+   \begin{beamercolorbox}[wd=0.065\paperwidth,ht=2.25ex,dp=1ex,right]{title in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\defbeamertemplate*{headline}{dlut theme}{%
+  \leavevmode%
+  \@tempdimb=6.4375ex%
+    %\multiply\@tempdimb by\beamer@sectionmax%
+    \pgfdeclareimage[height=.85\@tempdimb]{logo}{source/dlut_logo.png}%
+    \pgfdeclareimage[height=.9\@tempdimb]{title_logo}{source/dlut_title.png}%
+  \logo{\pgfuseimage{logo}}%
+  \ifdim\@tempdimb>0pt%
+    \advance\@tempdimb by 1.125ex%
+    \begin{beamercolorbox}[wd=.75\paperwidth,ht=\@tempdimb]{section in head/foot}%
+      \vbox to\@tempdimb{\vfil\insertsectionnavigationhorizontal{.5\textwidth}{\hskip0pt plus1filll}{}\vfil}%
+    \end{beamercolorbox}%
+    %% \begin{beamercolorbox}[wd=.4\paperwidth,ht=\@tempdimb,center]{subsection in head/foot}%
+    %%   \vbox to\@tempdimb{\vfil\textbf{\footnotesize\insertshortinstitute~~}\vfil}%
+    %% \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.185\paperwidth,ht=\@tempdimb,center]{subsection in head/foot}%
+      \vbox to\@tempdimb{\vfil\pgfuseimage{title_logo}\vfil}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.065\paperwidth,ht=\@tempdimb,center]{subsection in head/foot}%
+      \vbox to\@tempdimb{\vfil\insertlogo\vfil\vfil}%
+    \end{beamercolorbox}%
+  \fi%
+}
+
+\defbeamertemplate*{frametitle}{dlut theme}{%
+  \nointerlineskip%
+  %\vskip-2pt%
+  \hbox{\leavevmode
+    \advance\beamer@leftmargin by -12bp%
+    \advance\beamer@rightmargin by -12bp%
+    \beamer@tempdim=\textwidth%
+    \advance\beamer@tempdim by \beamer@leftmargin%
+    \advance\beamer@tempdim by \beamer@rightmargin%
+    \hskip-\Gm@lmargin\hbox{%
+      \setbox\beamer@tempbox=\hbox{\begin{minipage}[b]{\paperwidth}%
+          \vbox{}\vskip-.75ex%
+          \leftskip0.3cm%
+          \rightskip0.3cm plus1fil\leavevmode
+          \insertframetitle%
+          \ifx\insertframesubtitle\@empty%
+            \strut\par%
+          \else
+            \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
+          \fi%
+          \nointerlineskip
+          \vbox{}%
+          \end{minipage}}%
+      \beamer@tempdim=\ht\beamer@tempbox%
+      \advance\beamer@tempdim by 2pt%
+      \begin{pgfpicture}{0.1mm}{0pt}{1.01\paperwidth}{\beamer@tempdim}
+        \usebeamercolor{frametitle right}
+        \pgfpathrectangle{\pgfpointorigin}{\pgfpoint{\paperwidth}{\beamer@tempdim}}
+        \pgfusepath{clip}
+        \pgftext[left,base]{\pgfuseshading{beamer@frametitleshade}}
+      \end{pgfpicture}
+      \hskip-\paperwidth%
+      \box\beamer@tempbox%
+    }%
+    \hskip-\Gm@rmargin%
+  }%
+%  \nointerlineskip
+%    \vskip-0.2pt
+%    \hbox to\textwidth{\hskip-\Gm@lmargin\pgfuseshading{beamer@topshade}\hskip-\Gm@rmargin}
+%    \vskip-2pt
+}
