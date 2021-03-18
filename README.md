@@ -1,5 +1,7 @@
 # 大连理工大学（非官方）beamer模板
 
+> 已出大连理工大学Beamer新版主题，更加简洁好看，请移步https://github.com/fuujiro/DLUT-Beamer-Slide-V2
+
 兄弟们，啥也别说了！star和fork就是对我最大的鼓励！
 
 **点此预览**:
